@@ -14,11 +14,10 @@ window.addEventListener("load", function(){
                 console.log(path, objects[path]);
             }
             var row = document.querySelector(".datarow");
-            var logtable = row.parentElement();
+            var logtable = row.parentElement;
             for(var i=0; i<practicehistory.length; i++) {
                 var newrow = row.cloneNode(true);
                 populateHTML(newrow, practicehistory[i]);
-                // newrow.querySelector("a").setAttribute("href", "assessment.html?assessment="+practicehistory[i].assessmentscript+"&session="+practicehistory[i].session);
                 logtable.append(newrow);
             }
             row.remove();
