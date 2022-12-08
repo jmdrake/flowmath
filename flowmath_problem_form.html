@@ -1,0 +1,42 @@
+<form >
+    <div id="shortanswer">
+        <label class="w3-text-grey">Short Answer</label>
+        <input id="txtShortanswer" class="w3-input w3-border" type="text" required="">  
+    </div>
+    <div id="checkbox">
+        <input id="checkA" class="w3-check" type="checkbox">
+        <label id="lblCheckA">Answer A</label><br>
+        <input id="checkB" class="w3-check" type="checkbox">
+        <label id="lblCheckB">Answer B</label><br>
+        <input id="checkC" class="w3-check" type="checkbox">
+        <label id="lblCheckC">Answer C</label><br>
+        <input id="checkD" class="w3-check" type="checkbox">
+        <label id="lblCheckD">Answer D</label><br>
+        <input id="checkE" class="w3-check" type="checkbox">
+        <label id="lblCheckE">Answer E</label>
+    </div>
+
+    <div id="radio">
+        <input id="radioA" class="w3-radio" type="radio" name="radio" value="A">
+        <label id="lblRadioA">Answer A</label>
+        <br>
+        <input id="radioB" class="w3-radio" type="radio" name="radio" value="B">
+        <label id="lblRadioB">Answer B</label>
+        <br>
+        <input id="radioC" class="w3-radio" type="radio" name="radio" value="C">
+        <label id="lblRadioC">Answer C</label>
+        <br>
+        <input id="radioD" class="w3-radio" type="radio" name="radio" value="D">
+        <label id="lblRadioD">Answer D</label>
+        <br>
+        <input id="radioE" class="w3-radio" type="radio" name="radio" value="E">
+        <label id="lblRadioE">Answer E</label>
+        <br>
+    </div>                    
+    <p>
+        <button id="btnPrev" type="button" class="w3-btn w3-padding w3-teal" style="width:40px" onclick="prevQuestion()">< </button>
+        <button id="btnNext" type="button" class="w3-btn w3-padding w3-teal" style="width:40px" onclick="nextQuestion()"> ></button>
+        <button id="btnCheck" type="button" class="w3-btn w3-padding w3-teal" style="width:40px" onclick="checkAnswers()" disabled="true">&#10003</button>
+    </p>
+</form>
+

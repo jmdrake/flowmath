@@ -1,0 +1,123 @@
+<html>
+    <head>
+        <title>White Board in JS</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    </head>
+    <body onload="init()">
+
+        <input id="textBox" placeholder="Enter your text" />
+
+        <canvas id="can" width="1362" height="550"></canvas>
+
+        <div id="toolbox">
+            <div class="tools inliner centralize">
+                <div style="width:15px;height:15px;background:white;border:2px solid;" id="white" onclick="color(this)"></div>
+            </div>
+            <div class="colors inliner centralize">
+                <div class="color-dots inliner" style="background:#121212;" id="black" onclick="color(this)"></div>
+                <div class="color-dots inliner" style="background:rgba(255,255,0,0.5);" id="yellow" onclick="color(this)"></div>
+                <div class="color-dots inliner" style="background:#2C9F75;" id="green" onclick="color(this)"></div>
+                <div class="color-dots inliner" style="background:#238AE6;" id="cyan" onclick="color(this)"></div>
+                <div class="color-dots inliner" style="background:#B33F40;" id="red" onclick="color(this)"></div>
+                <div class="color-dots inliner" style="background:#E26313;" id="orange" onclick="color(this)"></div>
+            </div>
+            <div class="buttons inliner centralize">
+                <input type="button" value="save" id="btn" size="30" onclick="save()">
+                <input type="button" value="clear" id="clr" size="23" onclick="erase()">
+            </div>
+        </div>
+
+        <div id="savedScribbles">
+
+        </div>
+
+        <img class="canvasimg" style="display:none;">
+        <br>
+    <style>
+        body{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .inliner{
+            display: inline-block;
+            vertical-align: bottom;
+        }
+        .centralize{
+            text-align: center;
+        }
+
+        canvas#can{
+            top: 0;
+            left: 0;
+            width: 99.6%;
+            height: 85%;
+            position:absolute;
+            border: 2px solid #FFD700;
+        }
+
+        #toolbox{
+            bottom: 2%;
+            width: 99.4%;
+            position:absolute;
+        }
+        .tools{
+            width: 33.03%;
+        }
+        .colors{
+            width: 33.03%;
+        }
+        .buttons{
+            width: 33.03%;
+        }
+
+        .color-dots{
+            height: 20px;
+            width: 20px;
+            margin: 3px;
+            border-radius: 100%;
+        }
+
+        #textBox{
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            position: absolute;
+            border: 0px solid rgba(255,255,255,0.0);
+            outline: 3PX;
+            z-index: 1000;
+            display: none;
+        }
+
+        #savedScribbles{
+            top: 100%;
+            left: 5%;
+            width: 90%;
+            height: 85%;
+            position: absolute;
+        }
+
+        img.canvasimg{
+            height: 85vh;
+            width: 100%;
+            margin: 10px 0px;
+            border: 3px solid #121212;
+        }
+
+        /* #colorPicker{
+            bottom: 5%;
+            right: 5%;
+            width: 8%;
+            position: absolute; 
+        }
+        #colorPicker div{
+            height: 25px;
+            width: 25px;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 3px;
+        } */
+    </style>
+    </body>
+    
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    <script type="text/javascript" src="whiteboard.js"></script>
+
+    </html>

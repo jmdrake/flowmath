@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <style>
+            textarea {
+                height : 500px;
+                width : 500px;
+            }
+            #btnFormat {
+                vertical-align : middle
+            }
+        </style>            
+        <script>
+        function format() {
+            var text = document.getSelection().toString();
+            var yaml = document.getElementById("yaml");
+            yaml.innerHTML = "";
+            var question = text.split("(A)");
+            yaml.append("  - prompt: " + question[0] + "\n");
+            if(question[1]!=undefined){
+                yaml.append("    options: \n");
+                question = question[1].split("(B)");
+                if(question[1]!=undefined) {
+                    yaml.append("      A: " + question[0] + "\n");
+                    question = question[1].split("(C)");
+                    if(question[1]!=undefined) {
+                        yaml.append("      B: " + question[0] + "\n");
+                        question = question[1].split("(D)");
+                    }
+                    if(question[1]!=undefined) {
+                        yaml.append("      C: " + question[0] + "\n");
+                        question = question[1].split("(E)");
+                        if(question[1]!=undefined) {
+                            yaml.append("      D: " + question[0] + "\n");
+                            yaml.append("      E: " + question[1] + "\n");
+                        }
+                    }
+                }
+            }
+        }
+        </script>
+    </head>
+    <body>
+        <div>
+            <textarea id="text"></textarea>
+            <button id="btnFormat" onclick="format()">Format</button>
+            <textarea id="yaml"></textarea>
+        </div>        
+    </body>
+</html>

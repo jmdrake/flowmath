@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="assets/demo.css">
+    <script src="https://cdn.jsdelivr.net/npm/remotestoragejs@latest/release/remotestorage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/remotestorage-widget@latest/build/widget.js"></script>
+    <script src="MD5.js"></script>
+  </head>
+
+  <body class="w3-content">
+
+    <!--- RS widget anchor div -->
+    <div id="remotestorage-widget-anchor"></div>
+    <div class="w3-container">
+        URL: <input id="url"><br>
+        Description: <input id="description"></br>
+        Tags: <input id="tags">
+        <button class="w3-button w3-red" onClick="storeBookmark()">Store Bookmark</button>
+        <button class="w3-button w3-blue" onClick="listBookmarks()">List Bookmarks</button>
+    </div>
+
+  </body>
+
+  <script>
+    var bookmark = {
+        url: 'http://unhosted.org',
+        description: 'Unhosted Adventures',
+        tags: ['unhosted', 'remotestorage', 'no-backend']
+    }
+
+    const BookMark = {
+        type: 'object',
+        properties: {
+            url: 'string',
+            description: 'string',
+            tags: 'array'
+        }	
+    }
+
+    const remoteStorage = new RemoteStorage({changeEvents: { local: true, window: true, remote: true, conflicts: true }});
+    remoteStorage.access.claim("bookmarks", "rw");
+    const client = remoteStorage.scope("/bookmarks/");
+    client.declareType('BookMark', BookMark);
+
+    function storeBookmark() {
+        bookmark.url = document.getElementById("url").value;
+        bookmark.description = document.getElementById("description").value;
+        bookmark.tags = document.getElementById("tags").value.split(",");
+        var path = MD5(bookmark.url);        
+        client.storeObject('BookMark', path, bookmark);
+    }
+
+    function listBookmarks() {
+        client.getListing('')
+            .then(listing => {console.log(listing)});
+
+        client.getAll('').then(objects => {
+            for (var path in objects) {
+                console.log(path, objects[path]);
+            }
+        });            
+    }
+  </script>
+
+</html>

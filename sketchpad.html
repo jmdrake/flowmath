@@ -1,0 +1,125 @@
+<html lang="en" class="fa-events-icons-ready"><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <meta name="description" content="Example of using https://sketchpad.pro plugin as advanced drawing editor. You can move, scale and rotate canvas as well as drawing on using various tools. Use undo &amp; redo to navigate on sketch history. You can export your whiteboard as an image.">
+      <meta name="keywords" content="drawing board sketch pad online whiteboard canvas">
+      <meta name="author" content="Timescraper">
+      <link rel="icon" href="favicon.ico">
+
+      <title>Advanced | sketchpad.pro - free online drawing board</title>
+
+      <!-- Bootstrap core CSS -->
+      <link href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+      <!-- Font Awesome -->
+      <script async="" src="https://www.google-analytics.com/analytics.js"></script><script src="https://use.fontawesome.com/46af14eb3c.js"></script><link href="https://use.fontawesome.com/46af14eb3c.css" media="all" rel="stylesheet">
+
+      <!-- Google fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Geostar+Fill" rel="stylesheet">
+
+      <!-- Custom CSS -->
+      <link href="css/all.css" rel="stylesheet">
+      <link href="css/advanced.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+    
+    
+
+    <div class="container">
+
+      
+      <div class="row">
+        <div class="col-md-3">
+          <!-- tools -->
+          <div class="toolbar" id="tools">
+            <div class="section files">
+              <div id="reset" class="button"><i class="fa fa-trash-o"></i></div>
+              <div id="tool-save" class="button"><i class="fa fa-save"></i></div>
+              <div id="tool-load" class="button"><i class="fa fa-folder-open-o"></i></div>
+              <div id="tool-screenshot" class="button"><i class="fa fa-camera-retro"></i></div>
+            </div>
+
+            <div class="section drawing">
+              <div id="tool-pen" class="button active"><i class="fa fa-pencil"></i></div>
+              <div id="tool-highlighter" class="button"><i class="fa fa-paint-brush"></i></div>
+              <div id="tool-rainbow" class="button rainbow"><i class="fa fa-magic"></i></div>
+              <div id="tool-mandala" class="button mandala"><i class="fa fa-snowflake-o"></i></div>
+            </div>
+            <div class="section drawing">
+              <div id="tool-line" class="button line">╱</div>
+              <div id="tool-rectangle" class="button rectangle"><i class="fa fa-square-o"></i></div>
+              <div id="tool-circle" class="button circle"><i class="fa fa-circle-thin"></i></div>
+              <div id="tool-type" class="button font"><i class="fa fa-font"></i></div>
+            </div>
+            <div class="section rubber">
+                <div id="tool-eraser" class="button"><i class="fa fa-eraser"></i></div>
+                <div id="tool-cutout" class="button"><i class="fa fa-scissors"></i></div>
+            </div>
+            <div class="section special">
+                <div id="tool-rotate-viewport" class="button rotate-viewport"><i class="fa fa-circle-o-notch"></i></div>
+                <div id="tool-move-viewport" class="button move-viewport"><i class="fa fa-hand-paper-o"></i></div>
+            </div>
+            <div class="section special">
+                <div id="tool-zoom-out" class="button"><i class="fa fa-search-minus"></i></div>
+                <div id="tool-zoom-1" class="button"><i class="fa fa-home"></i></div>
+                <div id="tool-zoom-in" class="button"><i class="fa fa-search-plus"></i></div>
+            </div>
+            <div class="section special">
+                <!-- <div id="tool-fast-undo" class="button f-backward"><i class="fa fa-fast-backward"></i></div> -->
+                <div id="tool-undo" class="button undo"><i class="fa fa-backward"></i></div>
+                <div id="tool-redo" class="button redo"><i class="fa fa-forward"></i></div>
+                <!-- <div id="tool-fast-redo" class="button f-forward"><i class="fa fa-fast-forward"></i></div> -->
+            </div>
+            <hr style="clear:both">
+            <div class="section special">
+              <span id="toolName">Pen</span>
+            </div>
+            <div id="size" class="section size" style="display: block;">
+              <input class="slider" id="size-slider" type="range" min="1" max="20" step="1" value="1">
+            </div>
+
+            <div id="colorpaletteSection" class="section colorpicker" style="display: block;">
+              <div id="colorpalette" class="colorpalette" style="position: relative; width: 200px; height: 220px; display: inline-block;"><div class="color-bg" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAABYlAAAWJQFJUiTwAAAAB3RJTUUH4AcGEAAdMvv9RwAAAFBJREFUWMPt18EJACAIhWGLNnJah3Im28B36CDE/66CfBCirYgoa5KZ9hJ3b+vbhgMAAICj5lzNsYrqzxMAAAAAAAAA8/eA2vf8CwAA+B5wAUhhDw4II7MzAAAAAElFTkSuQmCC&quot;); background-size: 16px; background-position: 50% 50%; width: 200px; height: 20px; overflow: hidden; position: absolute; top: 0px; left: 0px;"><div class="color" style="width: 100%; height: 100%; cursor: pointer; background-color: rgb(0, 0, 0);"></div></div><canvas class="palette" width="180" height="180" style="cursor: crosshair; position: absolute; left: 0px; top: 20px;"></canvas><canvas class="hue" width="20" height="180" style="cursor: row-resize; position: absolute; top: 20px; left: 180px;"></canvas><canvas class="alpha" width="200" height="20" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAABYlAAAWJQFJUiTwAAAAB3RJTUUH4AcGEAAdMvv9RwAAAFBJREFUWMPt18EJACAIhWGLNnJah3Im28B36CDE/66CfBCirYgoa5KZ9hJ3b+vbhgMAAICj5lzNsYrqzxMAAAAAAAAA8/eA2vf8CwAA+B5wAUhhDw4II7MzAAAAAElFTkSuQmCC&quot;); background-size: 16px; background-position: 50% 50%; cursor: col-resize; position: absolute; top: 200px; left: 0px; overflow: hidden;"></canvas><div class="slider hue-slider" style="width: 24px; height: 6.6px; position: absolute; top: 16.7px; left: 178px; background-color: white; cursor: row-resize; box-shadow: rgb(0, 0, 0) 0px 0px 2px inset; z-index: 100;"></div><div class="slider alpha-slider" style="width: 6px; height: 24.2px; background-color: white; position: absolute; top: 197.8px; left: 197px; cursor: col-resize; box-shadow: rgb(0, 0, 0) 0px 0px 2px inset; z-index: 100;"></div><div class="pointer palette-pointer" style="width: 12px; height: 12px; background-color: white; position: absolute; border-radius: 50%; cursor: crosshair; box-shadow: rgb(0, 0, 0) 0px 0px 2px inset; left: -6px; top: 15.4px;"></div></div>
+            </div>
+            <div id="colorpaletteFillSection" class="section colorpicker" style="display: none;">
+              <div id="colorpaletteFill" class="colorpalette" style="position: relative; width: 200px; height: 220px; display: inline-block;"><div class="color-bg" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAABYlAAAWJQFJUiTwAAAAB3RJTUUH4AcGEAAdMvv9RwAAAFBJREFUWMPt18EJACAIhWGLNnJah3Im28B36CDE/66CfBCirYgoa5KZ9hJ3b+vbhgMAAICj5lzNsYrqzxMAAAAAAAAA8/eA2vf8CwAA+B5wAUhhDw4II7MzAAAAAElFTkSuQmCC&quot;); background-size: 16px; background-position: 50% 50%; width: 200px; height: 20px; overflow: hidden; position: absolute; top: 0px; left: 0px;"><div class="color" style="width: 100%; height: 100%; cursor: pointer;"></div></div><canvas class="palette" width="180" height="180" style="cursor: crosshair; position: absolute; left: 0px; top: 20px;"></canvas><canvas class="hue" width="20" height="180" style="cursor: row-resize; position: absolute; top: 20px; left: 180px;"></canvas><canvas class="alpha" width="200" height="20" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAABYlAAAWJQFJUiTwAAAAB3RJTUUH4AcGEAAdMvv9RwAAAFBJREFUWMPt18EJACAIhWGLNnJah3Im28B36CDE/66CfBCirYgoa5KZ9hJ3b+vbhgMAAICj5lzNsYrqzxMAAAAAAAAA8/eA2vf8CwAA+B5wAUhhDw4II7MzAAAAAElFTkSuQmCC&quot;); background-size: 16px; background-position: 50% 50%; cursor: col-resize; position: absolute; top: 200px; left: 0px; overflow: hidden;"></canvas><div class="slider hue-slider" style="width: 24px; height: 6.6px; position: absolute; top: 16.7px; left: 178px; background-color: white; cursor: row-resize; box-shadow: rgb(0, 0, 0) 0px 0px 2px inset; z-index: 100;"></div><div class="slider alpha-slider" style="width: 6px; height: 24.2px; background-color: white; position: absolute; top: 197.8px; left: 197px; cursor: col-resize; box-shadow: rgb(0, 0, 0) 0px 0px 2px inset; z-index: 100;"></div><div class="pointer palette-pointer" style="width: 12px; height: 12px; background-color: white; position: absolute; border-radius: 50%; cursor: crosshair; box-shadow: rgb(0, 0, 0) 0px 0px 2px inset;"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div id="sketchpad" style="position: relative; overflow: hidden; background-color: rgb(250, 250, 250); cursor: unset;"><canvas id="backgroundCanvas" style="width: 100%; height: 100%; position: absolute; transform-origin: 0px 0px;" width="825" height="800"></canvas><iframe id="backgroundIFrame" style="display: none; position: absolute; transform-origin: 412.5px 400px; border: 0px; transform: scale(1) rotate(0deg) translate(0px, 0px) translate(412.5px, 400px);" src="about:blank"></iframe><img id="background" style="position: absolute; transform-origin: 412.5px 400px; transform: scale(1) rotate(0deg) translate(0px, 0px) translate(412.5px, 400px); display: none;" src=""><div id="huds" style="z-index: 1; width: 100%; height: 100%; position: absolute; background-position: center center; transform-origin: 412.5px 400px; transition: opacity 0.5s ease 0s; transform: scale(1) rotate(0deg) translate(0px, 0px); display: none;"></div><div id="projector" style="z-index: 2; width: 100%; height: 100%; position: absolute; background-position: center center; transform-origin: 0px 0px;"><div style="display: block; margin-left: -1px; margin-top: -1px; width: 2px; height: 2px; border: 1px solid black; box-sizing: border-box; border-radius: 50%; background-color: rgba(0, 0, 0, 0); position: absolute; left: 793px; top: 544px;"></div></div><canvas id="canvasB" style="width: 100%; height: 100%; position: absolute; transition: all 1s linear 0s; opacity: 1;" width="825" height="800"></canvas><div id="objectsCanva" style="width: 100%; height: 100%; position: absolute;"></div><canvas id="canvas" style="width: 100%; height: 100%; position: absolute; transition: all 1s linear 0s; opacity: 1;" width="825" height="800"></canvas><canvas id="canvasProjector" style="opacity: 0.8; width: 100%; height: 100%; position: absolute;" width="825" height="800"></canvas><img id="foreground" style="position: absolute; transform-origin: 412.5px 400px; transform: scale(1) rotate(0deg) translate(0px, 0px) translate(412.5px, 400px); display: none;" src=""><div id="crosshairEl" class="crosshair" style="position: absolute; transform-origin: 0px 0px; background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QAQAA9AFN/YZW7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH4AoTDyESpvZyZAAAANxJREFUWMPtllEKwjAQRF+ipghKFVqhXs/jeAbvIOKpLMUfQVpt4k8LIkULsSxiBvZr2c0wO7sEAgICfh3Hw34t+f4S2Po00F8gsQKMJAElqoAxBuAuReAex3Ep7QErTcAL4z5jbuXuqJ055zSwAG5v+p59HLwDJgBpmgKUjezKOTdSSk2ttVetdQ24RtUoz/O2/gZsfI/Nc8yfIkuSZAdkjVL6JcynG9FnBOc3uVIpVQMXoOrIV4OvYSP7726Blu7hTcBaG/X00iAExkVRiI9A1IQVcPrrL1lAgDceLw8ximVPrtAAAAAASUVORK5CYII=&quot;); display: block;"></div><div id="loadingEl" style="position: absolute; display: none; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.4); color: rgb(0, 0, 0); justify-content: center; align-items: center;">...please wait...</div></div>
+        </div>
+      </div>
+
+    </div>
+
+    
+
+    
+
+    <!-- tether.min.js -->
+    <script src="https://developers.sketchpad.pro/js/tether.min.js"></script>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="https://v4-alpha.getbootstrap.com/assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://v4-alpha.getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="https://v4-alpha.getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+
+    <script src="http://cdn.sketchpad.pro/dist/current/sketchpad.min.js"></script>
+    Sketchpad 
+    <script src="./sketchpad.js"></script>
+    <script src="./events.js"></script>
+    <script src="./colorpalette.js"></script>
+    <script src="./misc.js"></script>
+    <script src="./advanced.js"></script>
+    </body>
+</html>

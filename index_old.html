@@ -1,0 +1,400 @@
+<html>
+    <head>
+        <script ></script>
+        <!--<script src="flowmath.js"></script>-->
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">        
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML'  async></script>        
+        <script src="MD5.js"></script>
+        <script src="CLEPsampletest.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/remotestoragejs@latest/release/remotestorage.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/remotestorage-widget@latest/build/widget.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>CLEP Sample Test v 0.7</h1>
+        <div class="w3-row">
+            <div class="w3-half">
+                <div class="w3-container w3-teal">
+                    <h2>Problem:<span id="problem"></span></h2>
+                    <div id="prompt"></div>
+                    <img src="" id="image" style="display:none"></img>
+                </div>
+                <div class="w3-container w3-card-4">
+                    <form >
+                        <div id="shortanswer">
+                            <label class="w3-text-grey">Short Answer</label>
+                            <input id="txtShortanswer" class="w3-input w3-border" type="text" required="">  
+                        </div>
+                        <div id="checkbox">
+                            <input id="checkA" class="w3-check" type="checkbox">
+                            <label id="lblCheckA">Answer A</label><br>
+                            <input id="checkB" class="w3-check" type="checkbox">
+                            <label id="lblCheckB">Answer B</label><br>
+                            <input id="checkC" class="w3-check" type="checkbox">
+                            <label id="lblCheckC">Answer C</label><br>
+                            <input id="checkD" class="w3-check" type="checkbox">
+                            <label id="lblCheckD">Answer D</label><br>
+                            <input id="checkE" class="w3-check" type="checkbox">
+                            <label id="lblCheckE">Answer E</label>
+                        </div>
+
+                        <div id="radio">
+                            <input id="radioA" class="w3-radio" type="radio" name="radio" value="A">
+                            <label id="lblRadioA">Answer A</label>
+                            <br>
+                            <input id="radioB" class="w3-radio" type="radio" name="radio" value="B">
+                            <label id="lblRadioB">Answer B</label>
+                            <br>
+                            <input id="radioC" class="w3-radio" type="radio" name="radio" value="C">
+                            <label id="lblRadioC">Answer C</label>
+                            <br>
+                            <input id="radioD" class="w3-radio" type="radio" name="radio" value="D">
+                            <label id="lblRadioD">Answer D</label>
+                            <br>
+                            <input id="radioE" class="w3-radio" type="radio" name="radio" value="E">
+                            <label id="lblRadioE">Answer E</label>
+                            <br>
+                        </div>                    
+                        <p>
+                            <button id="btnPrev" type="button" class="w3-btn w3-padding w3-teal" style="width:40px" onclick="prevQuestion()">< </button>
+                            <button id="btnNext" type="button" class="w3-btn w3-padding w3-teal" style="width:40px" onclick="nextQuestion()"> ></button>
+                            <button id="btnCheck" type="button" class="w3-btn w3-padding w3-teal" style="width:40px" onclick="checkAnswers()" disabled="true">&#10003</button>
+                        </p>
+                    </form>
+                <div>
+                    <button id="btnPrevHint" onclick="prevHint()" disabled>Hint <<</button>
+                    <button id="btnNextHint" onclick="nextHint()"> Hint >></button> 
+                    <div id="example" class="w3-container w3-hide">
+                    </div>
+                </div>
+
+                </div>
+                <div class="w3-row">
+                <div>
+                    <div>Log</div>
+                    <div style="overflow-y:scroll; max-height:200px" class="w3-card-4">
+                        <table>
+                            <tbody id="log">
+                            </tbody>            
+                        </table>
+                    </div>
+                    <div id="scratchpad" class="w3-card-4 w3-row">
+                        <div class="w3-half">
+                            <div>
+                                <h2>Scratch Pad 0.3</h2>
+                                <table style="background-color:beige">
+                                    <tr>
+                                        <th><input id="pad" size=60></th>
+                                    </tr>
+                                    <tr>
+                                        <th id="preview"></th>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="overflow-y:scroll; max-height:100px">                        
+                                <table id="steps">
+                                </table>        
+                            </div>
+                        </div>
+                    </div>                    
+                </div>                
+            </div>                
+            <div class="w3-half">
+                <h3>Whiteboard</h3>
+                <iframe src="whiteboard.html" title="Whiteboard" width="100%" height="100%"></iframe>
+            </div>
+            </div>
+        </div>
+        <script>            
+            function getQuestionType(question) {
+                if(question.type=="shortanswer") {
+                    return questiontype.shortanswer
+                } else if (question.type=="multiselect") {
+                    return questiontype.multiselect
+                } else {
+                    return questiontype.multichoice
+                }
+            }
+
+            function showRadio(question) {
+                document.getElementById("radio").style.display="block";
+                document.getElementById("shortanswer").style.display="none";
+                document.getElementById("checkbox").style.display="none";
+                for(var i = 0; i < options.length; i++) {
+                    document.getElementById("radio" + options[i]).checked=false;
+                    if(question.options[options[i]]!=undefined){
+                        document.getElementById("radio" + options[i]).value = options[i];
+                        document.getElementById("lblRadio" + options[i]).innerHTML = question.options[options[i]];
+                        document.getElementById("radio" + options[i]).style.display="";
+                        document.getElementById("lblRadio" + options[i]).style.display="";
+                        if(answers[problem]!=undefined&&answers[problem]==options[i])
+                            document.getElementById("radio" + options[i]).checked=true;
+
+                    } else {
+                        document.getElementById("radio" + options[i]).style.display="none";
+                        document.getElementById("lblRadio" + options[i]).style.display="none";
+                    }
+                }
+            }
+
+            function showCheckBox(question) {
+                document.getElementById("radio").style.display="none";
+                document.getElementById("shortanswer").style.display="none";
+                document.getElementById("checkbox").style.display="block";
+                for(var i = 0; i < options.length; i++) {
+                    document.getElementById("check" + options[i]).checked=false;                          
+                    if(question.options[options[i]]!=undefined){                        
+                        document.getElementById("lblCheck" + options[i]).innerHTML = question.options[options[i]];
+                        document.getElementById("check" + options[i]).style.display="";
+                        document.getElementById("lblCheck" + options[i]).style.display="";
+                        if(answers[problem]!=undefined&&answers[problem].indexOf(options[i])>=0)
+                            document.getElementById("check" + options[i]).checked=true;
+                    } else {
+                        document.getElementById("check" + options[i]).style.display="none";
+                        document.getElementById("lblCheck" + options[i]).style.display="none";
+                    }              
+                }
+            }
+
+            function showShortAnswer(question) {
+                document.getElementById("radio").style.display="none";
+                document.getElementById("shortanswer").style.display="block";
+                document.getElementById("checkbox").style.display="none";
+                hint = 0;
+                if(answers[problem]==undefined) {
+                    document.getElementById("txtShortanswer").value = "";
+                } else {
+                    document.getElementById("txtShortanswer").value = answers[problem];
+                }
+                
+            }                        
+
+            function showQuestion(question) {
+                hintnumber = 0;
+                btnNextHint.removeAttribute("disabled");
+                btnPrevHint.setAttribute("disabled", true);
+                document.getElementById("prompt").innerHTML = question.prompt;
+                document.getElementById("problem").innerHTML = problem + 1;
+                if(sessionLog.problems[problem]==undefined){sessionLog.problems[problem] = {"prompt":question.prompt, "steps" :[]}}
+                document.getElementById("steps").innerHTML = "";
+                if(question.image!=undefined) {
+                    document.getElementById("image").style.display="";
+                    document.getElementById("image").setAttribute("src", question.image);
+                } else {
+                    document.getElementById("image").style.display="none";                    
+                }
+                pad.value = "";
+                preview.innerHTML = "";
+                if(question.type){
+                    if(question.type=="multiselect") {
+                        showCheckBox(question)
+                    } else if(question.type=="shortanswer") {
+                        showShortAnswer(question)
+                    }
+                } else {
+                    showRadio(question)
+                }
+                MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+                hintcard.style.display="none";                
+            }
+
+            function nextQuestion() {
+                if(problem<questions.length-1) {
+                    recordAnswer();
+                    problem++;               
+                    showQuestion(questions[problem]);    
+                    document.getElementById("btnPrev").removeAttribute("disabled");
+                } else {
+                    document.getElementById("btnNext").setAttribute("disabled", true);
+                    document.getElementById("btnCheck").removeAttribute("disabled");
+                }                
+            }
+
+            function prevQuestion() {
+                if(problem>0) {
+                    recordAnswer();
+                    problem--;
+                    showQuestion(questions[problem]);
+                    document.getElementById("btnNext").removeAttribute("disabled");
+                } else {
+                    document.getElementById("btnPrev").setAttribute("disabled", true);
+                }
+            }
+
+            function recordAnswer() {
+               var answer="";
+               var question = questions[problem];
+               if(question.type == "shortanswer") {
+                   answer = document.getElementById("txtShortanswer").value
+               } else if(question.type == "multiselect") {
+                   for(var i=0; i<options.length; i++) {
+                       if(document.getElementById("check"+options[i]).checked) {
+                           answer += options[i]
+                       }
+                   }
+               } else {
+                   for(var i=0; i<options.length; i++) {
+                       if(document.getElementById("radio"+options[i]).checked) {
+                           answer += options[i]
+                       }
+                   }
+               }
+               console.log(answer);
+               answers[problem]=answer;
+            }
+
+            function nextHint(){
+                btnPrevHint.removeAttribute("disabled");
+                if(hintnumber < questions[problem].hints.length) {
+                    var hint = hints[questions[problem].hints[hintnumber]];
+                    showHint(hint)
+                    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+                    hintnumber++;
+                } else {
+                    btnNextHint.setAttribute("disabled", true)
+                }
+            }
+
+            function prevHint(){
+                btnNextHint.removeAttribute("disabled");
+                if(hintnumber > 0) {
+                    hintnumber--;
+                    var hint = hints[questions[problem].hints[hintnumber]];
+                    showHint(hint)
+                    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+                } else {
+                    btnPrevHint.setAttribute("disabled", true)
+                }
+            }
+
+            function showHint(hintdata) {
+                document.getElementById("hintname").innerHTML = hintdata.name;
+                document.getElementById("description").innerHTML = hintdata.description;
+                document.getElementById("example").innerHTML = hintdata.example;
+                hintcard.style.display="block";
+                MathJax.Hub.Queue(["Typeset",MathJax.Hub]);                
+            }            
+
+            function toggleFold(id) {
+                var x = document.getElementById(id);
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className += " w3-show";
+                } else { 
+                    x.className = x.className.replace(" w3-show", "");
+                }
+            }
+
+            function newRow(text) {
+                var tr = document.createElement("tr");
+                var td = document.createElement("td");
+                td.innerHTML = text;
+                tr.append(td);
+                return tr;
+            }            
+
+            function checkAnswers(){
+                var correct = 0;
+                var incorrect = 0;
+                for(var i=0; i < answerkey.length; i++){
+                    if(answers[i]==answerkey[i]){
+                        log.append(newRow("Problem: " + (i + 1) + " Correct! " + answers[i]));
+                        correct++;
+                    } else {
+                        log.append(newRow("Problem: " + (i + 1) + " Incorrect.  You chose " + answers[i] + " Correct answer is " + answerkey[i]));
+                        incorrect++;
+                    }
+                }
+                log.append(newRow("Total Correct " + correct + " Total Incorrect " + incorrect));
+                sessionLog["answers"] =answers;
+                sessionLog["answerkey"]=answerkey;
+                sessionLog["correct"]=correct;
+                sessionLog["incorrect"]=incorrect;
+                sessionLog["timestamp"]=new Date().toISOString();
+                console.log(sessionLog);
+                var path = MD5(sessionLog.timestamp);
+                client.storeObject("SessionLog", path, sessionLog);
+            }
+
+            const options = ["A","B","C","D","E"];            
+            const questiontype = {shortanswer : 1, multichoice : 2, multiselect : 3};
+            var problem = 0;
+            var answers = [];
+            var questions = CLEPtest.questions;
+            var hints = CLEPtest.hints;
+            var answerkey = CLEPtest.answers;
+            var hintnumber = 0;
+            var sessionLog = {"problems":[]};
+
+            const SessionLog = {
+                type : "object",
+                properties: {
+                    id: "string",
+                    answers: {
+                        type: "array",
+                        default: []
+                    },
+                    answerkey: {
+                        type: "array",
+                        default: []
+                    },
+                    correct: {
+                        type: "number",
+                        default: 0
+                    },
+                    incorrect: {
+                        type: "number",
+                        default: 0
+                    },
+                    problems: {
+                        type: "array",
+                        items: {
+                            type: "object",
+                            properties: {
+                                prompt: "string",
+                                steps: "array",
+                                default: []
+                            }
+                        }
+                    }
+                }
+            }
+
+            const remoteStorage = new RemoteStorage({changeEvents: { local: true, window: true, remote: true, conflicts: true }});
+            remoteStorage.access.claim('mathlogs', 'rw');     
+            const client = remoteStorage.scope('/mathlogs/');
+            client.declareType("SessionLog", SessionLog);
+
+            const widget = new Widget(remoteStorage);
+
+            widget.attach();
+
+            // var sessionLog = SessionLog;
+
+            window.onload = (event) =>{  
+                pad = document.getElementById("pad");
+                log = document.getElementById("log");
+
+                pad.addEventListener("keyup", function(event){
+                    preview.innerHTML = "`" + pad.value + "`";
+                    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+                });
+
+                pad.addEventListener("change", function(e){
+                    steps.append(newRow("`"+pad.value+"`"));
+                    steps.lastChild.scrollIntoView()
+                    log.append(newRow("`"+pad.value+"`"));
+                    log.lastChild.scrollIntoView();
+                    sessionLog.problems[problem].steps.push(pad.value);
+                    preview.innerHTML = "`" + pad.value + "`";
+                    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);	
+                });      
+
+                steps = document.getElementById("steps");
+                showQuestion(questions[problem]);                
+            }
+
+        </script>
+    </body>
+</html>

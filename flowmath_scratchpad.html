@@ -1,0 +1,32 @@
+<div>
+    <h2>Scratch Pad</h2>
+    <table style="background-color:beige">
+        <tr>
+            <th><input id="pad" size=60>Format? <input id="preformat" type="checkbox" checked></th>
+        </tr>
+        <tr>
+            <th id="preview"></th>
+        </tr>
+    </table>
+    <div style="overflow-y:scroll; max-height:200px" class="w3-card-4">
+        <div>Log</div>
+        <table>
+            <tbody id="log">
+            </tbody>            
+        </table>
+    </div>    
+</div>
+<script>
+    pad.addEventListener("keyup", function(event){
+        preview.innerHTML = "`" + pad.value + "`";
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    });
+
+    pad.addEventListener("change", function(e){
+        log.append(newRow("`"+pad.value+"`"));
+        log.lastChild.scrollIntoView();
+        sessionLog.problems[problem].steps.push(pad.value);
+        preview.innerHTML = "`" + pad.value + "`";
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);	
+    });      
+</script>
