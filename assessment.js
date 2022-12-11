@@ -61,9 +61,9 @@ window.onload = (event) =>{
         questions = assessment.questions;
         hints = assessment.hints;
         answerkey = assessment.answers;
-        loadDoc("flowmath_problem_form.html", "problemform", function(){
-            loadDoc("flowmath_hint_div.html", "hintdiv", function(){
-                loadDoc("flowmath_scratchpad.html", "scratchpad", function(){
+        loadDoc("problems.html", "problems", function(){
+            loadDoc("hints.html", "hints", function(){
+                loadDoc("scratchpad.html", "scratchpad", function(){
                     pad = document.getElementById("pad");
                     log = document.getElementById("log");
                     const preformat = document.getElementById("preformat");
@@ -317,6 +317,9 @@ function showHint(hintdata) {
             }
             if(questions[problem].solution.start!=undefined) {
                 pad.value = questions[problem].solution.start;
+                preview.innerHTML = "`" + pad.value + "`";
+                log.append("`" + pad.value + "`");  
+                MathJax.Hub.Queue(["Typeset",MathJax.Hub]);                
             }
         }
         planshown = true;
