@@ -1,0 +1,16 @@
+<div>
+    <button id="btnPrevHint" onclick="prevHint()" disabled>Hint <<</button>
+    <button id="btnNextHint" onclick="nextHint()"> Hint >></button> 
+    <button id="btnNewHint" onclick="nextHint()"> Hint +</button> 
+    <div id="hintcard" style="display:none" class="w3-card">
+        <button onclick="toggleFold('hintname')" class="w3-btn w3-block w3-black w3-left-align">Name</button>
+        <div id="hintname" class="w3-container">
+        </div>
+        <button onclick="toggleFold('description')" class="w3-btn w3-block w3-black w3-left-align">Description</button>
+        <div id="description" class="w3-container w3-hide">
+        </div>
+        <button onclick="toggleFold('example')" class="w3-btn w3-block w3-black w3-left-align">Example(s)</button>
+        <div id="example" class="w3-container w3-hide">
+        </div>
+    </div>    
+</div>
